@@ -25,12 +25,15 @@ async function fetchData() {
     let data = await Promise.all([fetchUsers(), fetchPosts()]);
     const Users = data[0],
       Posts = data[1];
-    let result = Users.map(async (e) => {
+    let result = Users.map((e) => {
       return { user: e, posts: Posts.filter((p) => p.userId === e.id) };
     });
-    console.log(result);
+    return result;
   } catch (error) {
     console.error(error);
   }
 }
-fetchData();
+// console.log(fetchData());
+fetchData().then((result) => {
+  console.log(result);
+});
